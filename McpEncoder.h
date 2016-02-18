@@ -8,18 +8,18 @@
 // 18.01.2014 created by Matthias Hertel
 // -----
 
-#ifndef RotaryEncoder_h
-#define RotaryEncoder_h
+#ifndef McpEncoder_h
+#define McpEncoder_h
 
 #include "Arduino.h"
-
+#include "Adafruit_MCP23017.h"
 #define LATCHSTATE 3
 
 class RotaryEncoder
 {
 public:
   // ----- Constructor -----
-  RotaryEncoder(int pin1, int pin2);
+  RotaryEncoder(int pin1, int pin2, int mcp_num);
   
   // retrieve the current position
   int  getPosition();
@@ -31,7 +31,9 @@ public:
   void tick(void);
 
 private:
-  int _pin1, _pin2; // Arduino pins used for the encoder. 
+  int _pin1, _pin2, _mcp_num; // Arduino pins used for the encoder. 
+  
+  Adafruit_MCP23017 _mcp;
   
   int8_t _oldState;
   

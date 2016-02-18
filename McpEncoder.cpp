@@ -9,8 +9,8 @@
 // -----
 
 #include "Arduino.h"
-#include "RotaryEncoder.h"
-
+#include "McpEncoder.h"
+#include "Adafruit_MCP23017.h"
 
 // The array holds the values –1 for the entries where a position was decremented,
 // a 1 for the entries where the position was incremented
@@ -31,18 +31,20 @@ const int8_t KNOBDIR[] = {
 
 // ----- Initialization and Default Values -----
 
-RotaryEncoder::RotaryEncoder(int pin1, int pin2) {
-  
+RotaryEncoder::RotaryEncoder(int pin1, int pin2, int mcp_num) {
   // Remember Hardware Setup
   _pin1 = pin1;
   _pin2 = pin2;
+  _mcp_num = mcp_num;
   
+  //Setup MCP23017
+  _mcp.begin(_mcp_num);
   // Setup the input pins
-  pinMode(pin1, INPUT);
-  digitalWrite(pin1, HIGH);   // turn on pullup resistor
+  _mcp.pinMode(pin1, INPUT);
+  _mcp.pullUp(pin1, HIGH);   // turn on pullup resistor
 
-  pinMode(pin2, INPUT);
-  digitalWrite(pin2, HIGH);   // turn on pullup resistor
+  _mcp.pinMode(pin2, INPUT);
+  _mcp.pullUp(pin2, HIGH);   // turn on pullup resistor
 
   // when not started in motion, the current state of the encoder should be 3
   _oldState = 3;
@@ -51,7 +53,6 @@ RotaryEncoder::RotaryEncoder(int pin1, int pin2) {
   _position = 0;
   _positionExt = 0;
 } // RotaryEncoder()
-
 
 int  RotaryEncoder::getPosition() {
   return _positionExt;
@@ -67,8 +68,8 @@ void RotaryEncoder::setPosition(int newPosition) {
 
 void RotaryEncoder::tick(void)
 {
-  int sig1 = digitalRead(_pin1);
-  int sig2 = digitalRead(_pin2);
+  int sig1 = _mcp.digitalRead(_pin1);
+  int sig2 = _mcp.digitalRead(_pin2);
   int8_t thisState = sig1 | (sig2 << 1);
 
   if (_oldState != thisState) {

@@ -14,11 +14,13 @@
 // Hardware setup:
 // Attach a rotary encoder with output pins to A2 and A3.
 // The common contact should be attached to ground.
+#include <Wire.h>
+#include <Adafruit_MCP23017.h>
+#include <McpEncoder.h>
 
-#include <RotaryEncoder.h>
 
 // Setup a RoraryEncoder for pins A2 and A3:
-RotaryEncoder encoder(A2, A3);
+RotaryEncoder encoder(0, 1, 0);
 
 void setup()
 {
@@ -42,4 +44,3 @@ void loop()
 } // loop ()
 
 // The End
-
