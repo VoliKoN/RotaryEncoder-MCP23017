@@ -1,5 +1,5 @@
 // -----
-// RotaryEncoder.h - Library for using rotary encoders.
+// McpEncoder.h - Library for using rotary encoders.
 // This class is implemented for use with the Arduino environment.
 // Copyright (c) by Matthias Hertel, http://www.mathertel.de
 // This work is licensed under a BSD style license. See http://www.mathertel.de/License.aspx
@@ -15,11 +15,11 @@
 #include "Adafruit_MCP23017.h"
 #define LATCHSTATE 3
 
-class RotaryEncoder
+class McpEncoder
 {
 public:
   // ----- Constructor -----
-  RotaryEncoder(int pin1, int pin2, int mcp_num);
+  McpEncoder(int pin1, int pin2, int mcp_num);
   
   // retrieve the current position
   int  getPosition();

@@ -1,5 +1,5 @@
 // -----
-// RotaryEncoder.cpp - Library for using rotary encoders.
+// McpEncoder.cpp - Library for using rotary encoders.
 // This class is implemented for use with the Arduino environment.
 // Copyright (c) by Matthias Hertel, http://www.mathertel.de
 // This work is licensed under a BSD style license. See http://www.mathertel.de/License.aspx
@@ -31,7 +31,7 @@ const int8_t KNOBDIR[] = {
 
 // ----- Initialization and Default Values -----
 
-RotaryEncoder::RotaryEncoder(int pin1, int pin2, int mcp_num) {
+McpEncoder::McpEncoder(int pin1, int pin2, int mcp_num) {
   // Remember Hardware Setup
   _pin1 = pin1;
   _pin2 = pin2;
@@ -52,13 +52,13 @@ RotaryEncoder::RotaryEncoder(int pin1, int pin2, int mcp_num) {
   // start with position 0;
   _position = 0;
   _positionExt = 0;
-} // RotaryEncoder()
+} // McpEncoder()
 
-int  RotaryEncoder::getPosition() {
+int  McpEncoder::getPosition() {
   return _positionExt;
 }
 
-void RotaryEncoder::setPosition(int newPosition) {
+void McpEncoder::setPosition(int newPosition) {
   // only adjust the external part of the position.
   
   _position = ((newPosition<<2) | (_position & 0x03));
@@ -66,7 +66,7 @@ void RotaryEncoder::setPosition(int newPosition) {
 
 }
 
-void RotaryEncoder::tick(void)
+void McpEncoder::tick(void)
 {
   int sig1 = _mcp.digitalRead(_pin1);
   int sig2 = _mcp.digitalRead(_pin2);
