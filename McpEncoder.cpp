@@ -40,11 +40,11 @@ McpEncoder::McpEncoder(int pin1, int pin2, int mcp_num) {
   //Setup MCP23017
   _mcp.begin(_mcp_num);
   // Setup the input pins
-  _mcp.pinMode(pin1, INPUT);
-  _mcp.pullUp(pin1, HIGH);   // turn on pullup resistor
+  _mcp.pinMode(_pin1, INPUT);
+  _mcp.pullUp(_pin1, HIGH);   // turn on pullup resistor
 
-  _mcp.pinMode(pin2, INPUT);
-  _mcp.pullUp(pin2, HIGH);   // turn on pullup resistor
+  _mcp.pinMode(_pin2, INPUT);
+  _mcp.pullUp(_pin2, HIGH);   // turn on pullup resistor
 
   // when not started in motion, the current state of the encoder should be 3
   _oldState = 3;
