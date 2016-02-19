@@ -26,6 +26,7 @@ void setup()
 {
   Serial.begin(57600);
   Serial.println("SimplePollRotator example for the McpEncoder library.");
+  encoder.init();
 } // setup()
 
 

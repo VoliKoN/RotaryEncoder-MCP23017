@@ -12,14 +12,17 @@
 #define McpEncoder_h
 
 #include "Arduino.h"
-#include "Adafruit_MCP23017.h"
 #define LATCHSTATE 3
+
+class Adafruit_MCP23017;
 
 class McpEncoder
 {
 public:
   // ----- Constructor -----
   McpEncoder(int pin1, int pin2, int mcp_num);
+  
+  void init();
   
   // retrieve the current position
   int  getPosition();
@@ -32,8 +35,6 @@ public:
 
 private:
   int _pin1, _pin2, _mcp_num; // Arduino pins used for the encoder. 
-  
-  Adafruit_MCP23017 _mcp;
   
   int8_t _oldState;
   

@@ -30,6 +30,7 @@ const int8_t KNOBDIR[] = {
 
 
 // ----- Initialization and Default Values -----
+Adafruit_MCP23017 mcp;
 
 McpEncoder::McpEncoder(int pin1, int pin2, int mcp_num) {
   // Remember Hardware Setup
@@ -37,14 +38,6 @@ McpEncoder::McpEncoder(int pin1, int pin2, int mcp_num) {
   _pin2 = pin2;
   _mcp_num = mcp_num;
   
-  //Setup MCP23017
-  _mcp.begin(_mcp_num);
-  // Setup the input pins
-  _mcp.pinMode(_pin1, INPUT);
-  _mcp.pullUp(_pin1, HIGH);   // turn on pullup resistor
-
-  _mcp.pinMode(_pin2, INPUT);
-  _mcp.pullUp(_pin2, HIGH);   // turn on pullup resistor
 
   // when not started in motion, the current state of the encoder should be 3
   _oldState = 3;
@@ -53,6 +46,17 @@ McpEncoder::McpEncoder(int pin1, int pin2, int mcp_num) {
   _position = 0;
   _positionExt = 0;
 } // McpEncoder()
+
+void McpEncoder::init() {
+  //Setup MCP23017
+  mcp.begin(_mcp_num);
+  // Setup the input pins
+  mcp.pinMode(_pin1, INPUT);
+  mcp.pullUp(_pin1, HIGH);   // turn on pullup resistor
+
+  mcp.pinMode(_pin2, INPUT);
+  mcp.pullUp(_pin2, HIGH);   // turn on pullup resistor
+}
 
 int  McpEncoder::getPosition() {
   return _positionExt;
@@ -68,8 +72,8 @@ void McpEncoder::setPosition(int newPosition) {
 
 void McpEncoder::tick(void)
 {
-  int sig1 = _mcp.digitalRead(_pin1);
-  int sig2 = _mcp.digitalRead(_pin2);
+  int sig1 = mcp.digitalRead(_pin1);
+  int sig2 = mcp.digitalRead(_pin2);
   int8_t thisState = sig1 | (sig2 << 1);
 
   if (_oldState != thisState) {
