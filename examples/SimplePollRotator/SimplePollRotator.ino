@@ -1,5 +1,5 @@
 // -----
-// SimplePollRotator.ino - Example for the RotaryEncoder library.
+// SimplePollRotator.ino - Example for the McpEncoder library.
 // This class is implemented for use with the Arduino environment.
 // Copyright (c) by Matthias Hertel, http://www.mathertel.de
 // This work is licensed under a BSD style license. See http://www.mathertel.de/License.aspx
@@ -20,12 +20,12 @@
 
 
 // Setup a RoraryEncoder for pins A2 and A3:
-RotaryEncoder encoder(0, 1, 0);
+McpEncoder encoder(0, 1, 0);
 
 void setup()
 {
   Serial.begin(57600);
-  Serial.println("SimplePollRotator example for the RotaryEncoder library.");
+  Serial.println("SimplePollRotator example for the McpEncoder library.");
 } // setup()
 
 
